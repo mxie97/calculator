@@ -27,7 +27,10 @@ let b;
 let operator;
 
 function operate(a, operator, b) {
-    return operator(a, b);
+    if (operator === 'add') return add(a,b);
+    else if (operator === 'subtract') return subtract(a,b);
+    else if (operator === 'multiply') return multiply(a,b);
+    else if (operator === 'divide') return divide(a,b);
 }
 
 operatorButtons.forEach((operatorButton) => {
@@ -38,12 +41,20 @@ numberButtons.forEach((numberButton) => {
     numberButton.addEventListener('click', populateDisplay)
 })
 
+equalsButton.addEventListener('click', evaluateDisplay)
+
 function populateDisplay() {
     let input = this.textContent;
-    if (!a && typeof Number(input) === 'number') {
-        a = parseInt(input);
-    } else if (input === '+' || input === '-' || input === 'x' || input === '÷') {
+    if (input === '+' || input === '-' || input === 'x' || input === '÷') {
+        a = parseInt(display.textContent);
         operator = this.id;
-    } else b = parseInt(input);
-    display.textContent = display.textContent + this.textContent;
+    } 
+    display.textContent = display.textContent + input;
+}
+
+function evaluateDisplay() {
+    let bStartIndex = a.toString().length + 1;
+    b = parseInt(display.textContent.slice(bStartIndex));
+    result = operate(a, operator, b);
+    display.textContent = result;
 }
