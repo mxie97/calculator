@@ -2,8 +2,8 @@ const numberButtons = document.querySelectorAll('.number-button')
 const operatorButtons = document.querySelectorAll('.operator-button')
 const equalsButton = document.getElementById('equals-button')
 const clearButton = document.getElementById('clear-button')
-const display = document.getElementById('display')
-
+const topDisplay = document.getElementById('top-display')
+const bottomDisplay = document.getElementById('bottom-display')
 
 
 function add(a, b) {
@@ -49,24 +49,30 @@ function populateDisplay() {
         if (operator) {
             evaluateDisplay();
         }
-        a = parseInt(display.textContent);
+        a = parseInt(bottomDisplay.textContent);
         operator = this.id;
-    } 
-    display.textContent = display.textContent + input;
+        topDisplay.textContent = bottomDisplay.textContent + input;
+    } else {
+        bottomDisplay.textContent = input;
+    }
+    // display.textContent = display.textContent + input;
+    
 }
 
 equalsButton.addEventListener('click', evaluateDisplay)
 
 function evaluateDisplay() {
-    let bStartIndex = a.toString().length + 1;
-    b = parseInt(display.textContent.slice(bStartIndex));
+    b = parseInt(bottomDisplay.textContent);
+    // let bStartIndex = a.toString().length + 1;
+    // b = parseInt(display.textContent.slice(bStartIndex));
     if (a === undefined || operator === undefined || b === undefined) {
-        display.textContent = 'ERROR - press CLEAR to continue';
+        topDisplay.textContent = 'ERROR - press CLEAR to continue';
     } else if (operator === 'divide' && b === 0) {
-        display.textContent = '>:( no dividing by 0 allowed - press CLEAR to continue';
+        topDisplay.textContent = '>:( no dividing by 0 allowed - press CLEAR to continue';
     } else {
         let result = operate(a, operator, b);
-        display.textContent = result;
+        bottomDisplay.textContent = result;
+        topDisplay.textContent = topDisplay.textContent + b + '=';
         resetVariables();
     }
     
@@ -82,5 +88,6 @@ clearButton.addEventListener('click', reset)
 
 function reset() {
     resetVariables();
-    display.textContent = '';
+    topDisplay.textContent = '';
+    bottomDisplay.textContent = '';
 }
