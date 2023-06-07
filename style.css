@@ -26,8 +26,17 @@ body {
 }
 
 .display-box {
-    height: 60px;
+    height: 30px;
     text-align: right;
+    padding: 15px 15px 0 15px;
+}
+
+#top-display {
+    font-size: large;
+}
+
+#bottom-display {
+    font-size: xx-large;
 }
 
 #button-container {

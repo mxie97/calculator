@@ -49,28 +49,36 @@ function populateDisplay() {
         if (operator) {
             evaluateDisplay();
         }
-        a = parseInt(bottomDisplay.textContent);
+        a = Number(bottomDisplay.textContent);
         operator = this.id;
-        topDisplay.textContent = bottomDisplay.textContent + input;
+        topDisplay.textContent = a + input;
+        bottomDisplay.textContent = '';
+        
     } else {
-        bottomDisplay.textContent = input;
+        bottomDisplay.textContent += input;
     }
-    // display.textContent = display.textContent + input;
     
 }
 
 equalsButton.addEventListener('click', evaluateDisplay)
 
 function evaluateDisplay() {
-    b = parseInt(bottomDisplay.textContent);
-    // let bStartIndex = a.toString().length + 1;
-    // b = parseInt(display.textContent.slice(bStartIndex));
+    //check if anything has been entered for the second value
+    if (bottomDisplay.textContent==='') {
+        b = undefined;
+    } else b = Number(bottomDisplay.textContent)
+    
     if (a === undefined || operator === undefined || b === undefined) {
-        topDisplay.textContent = 'ERROR - press CLEAR to continue';
+        topDisplay.textContent = 'ERROR! Press CLEAR to continue';
+        bottomDisplay.textContent = '';
     } else if (operator === 'divide' && b === 0) {
-        topDisplay.textContent = '>:( no dividing by 0 allowed - press CLEAR to continue';
+        topDisplay.textContent = '>:( no dividing by 0 allowed! Press CLEAR to continue';
+        bottomDisplay.textContent = '';
     } else {
         let result = operate(a, operator, b);
+        if (result.toString().length > 8) {
+            result = result.toFixed(7);
+        }
         bottomDisplay.textContent = result;
         topDisplay.textContent = topDisplay.textContent + b + '=';
         resetVariables();
