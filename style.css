@@ -1,10 +1,14 @@
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+
 }
 
 #calculator {
     margin-top: 50px;
+    margin-bottom: auto;
     display: flex;
     flex-direction: column;
     font-family: 'Courier New', Courier, monospace;
@@ -56,6 +60,10 @@ body {
     background-color: aliceblue;
 }
 
+.number-button:hover {
+    background-color:rgb(210, 234, 255);
+}
+
 .operator-button {
     font-family:'Courier New', Courier, monospace;
     font-size: xx-large;
@@ -65,6 +73,10 @@ body {
     width: 70px;
     margin: 5px 5px 5px 15px;
     background-color: rgb(252, 223, 228);
+}
+
+.operator-button:hover {
+    background-color: rgb(255, 201, 210);
 }
 
 #zero {
@@ -87,7 +99,29 @@ body {
     margin: 5px;
 }
 
+#equals-button:hover {
+    background-color: rgb(210, 255, 255);
+}
+
 #clear-button {
     width: 170px;
     background-color: white;
+}
+
+#clear-button:hover {
+    background-color: rgb(231, 231, 231);
+}
+
+footer {
+   position: absolute;
+   bottom: 10px;
+}
+
+.fa_custom {
+    color: black;
+    transition: transform 0.3s ease-in-out;
+}
+
+.fa-github:hover {
+    transform: rotate(360deg) scale(1.2);
 }
