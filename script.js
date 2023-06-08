@@ -27,22 +27,24 @@ let b;
 let operator;
 
 function operate(a, operator, b) {
-    if (operator === 'add') return add(a,b);
-    else if (operator === 'subtract') return subtract(a,b);
-    else if (operator === 'multiply') return multiply(a,b);
-    else if (operator === 'divide') return divide(a,b);
+    if (operator === '+') return add(a,b);
+    else if (operator === '-') return subtract(a,b);
+    else if (operator === 'x') return multiply(a,b);
+    else if (operator === '÷') return divide(a,b);
 }
 
 operatorButtons.forEach((operatorButton) => {
-    operatorButton.addEventListener('click', populateDisplay)
+    operatorButton.addEventListener('click', () => populateDisplay(operatorButton.textContent))
 })
 
 numberButtons.forEach((numberButton) => {
-    numberButton.addEventListener('click', populateDisplay)
+    numberButton.addEventListener('click', () => populateDisplay(numberButton.textContent))
 })
 
-function populateDisplay() {
-    let input = this.textContent;
+function populateDisplay(input) {
+
+    // input = this.textContent;
+
 
     if (input === '+' || input === '-' || input === 'x' || input === '÷') {
         // check first if operator already exists
@@ -50,7 +52,7 @@ function populateDisplay() {
             evaluateDisplay();
         }
         a = Number(bottomDisplay.textContent);
-        operator = this.id;
+        operator = input;
         topDisplay.textContent = a + input;
         bottomDisplay.textContent = '';
         
@@ -98,4 +100,16 @@ function reset() {
     resetVariables();
     topDisplay.textContent = '';
     bottomDisplay.textContent = '';
+}
+
+window.addEventListener('keydown', takeKeyboardInput)
+
+function takeKeyboardInput(e) {
+    if ( ( e.key >= 0 && e.key <= 9 ) || e.key == '+' || e.key == '-' || e.key == 'x' || e.key == '.') {
+        populateDisplay(e.key);
+    } else if (e.key == '/') {
+        populateDisplay('÷')
+    } else if (e.key == '=') {
+        evaluateDisplay();
+    }
 }
